@@ -4,6 +4,7 @@ from utils.plotters import create_oi_volume_charts, create_treemap, create_donut
 from utils.data_transformer import transform_options_df, reorder_and_round
 from utils.indicators import calculate_technical_indicators
 import yfinance as yf
+import pandas as pd
 
 # Set page layout and title
 st.set_page_config(layout="wide")
@@ -100,14 +101,13 @@ if page == "Options Data":
         st.plotly_chart(fig_oi, use_container_width=True, key="oi_chart")
         st.plotly_chart(fig_volume, use_container_width=True, key="vol_chart")
 
-        # Display Top 10 calls/puts sorted by volume
-        calls_sorted = transform_options_df(calls).sort_values(by='volume', ascending=False).head(10)
-        puts_sorted = transform_options_df(puts).sort_values(by='volume', ascending=False).head(10)
+        calls["Type"] = "Call"
+        puts["Type"] = "Put"
+        combined_options = pd.concat([calls, puts]).sort_values(by="volume", ascending=False).head(20)
+        combined_options = transform_options_df(combined_options)
 
-        st.write("### Top 10 Calls by Volume")
-        st.write(calls_sorted)
-        st.write("### Top 10 Puts by Volume")
-        st.write(puts_sorted)
+        st.write("### Top 20 Options (Calls & Puts) by Volume")
+        st.dataframe(combined_options)
 
 
 if page == "Gamma Exposure":
