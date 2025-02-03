@@ -2,7 +2,7 @@ import streamlit as st
 from utils.data_fetcher import fetch_options_dates, fetch_option_chain, fetch_stock_data,fetch_options_data
 from utils.plotters import create_oi_volume_charts, create_treemap, create_donut_chart,create_bar_chart
 from utils.data_transformer import transform_options_df, reorder_and_round
-from utils.indicators import calculate_technical_indicators
+
 import yfinance as yf
 import pandas as pd
 
@@ -44,40 +44,7 @@ if page == "Options Data":
     volume_change = volume - prev_volume
     volume_arrow = "↑" if volume_change > 0 else "↓" if volume_change < 0 else "→"
 
-    # Fetch & calculate technical indicators
-    delta, rsi, ma50, ma200 = calculate_technical_indicators(ticker)
-    prev_delta = delta - 0.1  # Placeholder for delta change
-    delta_arrow = "↑" if delta > prev_delta else "↓" if delta < prev_delta else "→"
-
-    prev_rsi = rsi - 0.5  # Placeholder for RSI change
-    rsi_arrow = "↑" if rsi > prev_rsi else "↓" if rsi < prev_rsi else "→"
-
-    prev_ma50 = ma50 - 0.2  # Placeholder for MA change
-    ma50_arrow = "↑" if ma50 > prev_ma50 else "↓" if ma50 < prev_ma50 else "→"
-
-    prev_ma200 = ma200 - 0.3  # Placeholder for MA change
-    ma200_arrow = "↑" if ma200 > prev_ma200 else "↓" if ma200 < prev_ma200 else "→"
-
-    # Display all metrics in a single row using columns
-    col1, col2, col3, col4, col5, col6 = st.columns(6)
-
-    with col1:
-        st.metric("Current Price", f"${current_price:.2f}", f"{price_change:.2f} {price_arrow}")
-
-    with col2:
-        st.metric("Volume", f"{volume:,}", f"{volume_change:,} {volume_arrow}")
-
-    with col3:
-        st.metric("Delta", f"{delta:.2f}", f"{delta - prev_delta:.2f} {delta_arrow}")
-
-    with col4:
-        st.metric("RSI", f"{rsi:.2f}", f"{rsi - prev_rsi:.2f} {rsi_arrow}")
-
-    with col5:
-        st.metric("50-day MA", f"${ma50:.2f}", f"{ma50 - prev_ma50:.2f} {ma50_arrow}")
-
-    with col6:
-        st.metric("200-day MA", f"${ma200:.2f}", f"{ma200 - prev_ma200:.2f} {ma200_arrow}")
+   
 
     if selected_expiries:
         expiry_date = selected_expiries[0]  # Assuming user selects a date
@@ -140,40 +107,7 @@ if page == "Gamma Exposure":
     volume_change = volume - prev_volume
     volume_arrow = "↑" if volume_change > 0 else "↓" if volume_change < 0 else "→"
 
-    # Fetch & calculate technical indicators
-    delta, rsi, ma50, ma200 = calculate_technical_indicators(ticker)
-    prev_delta = delta - 0.1  # Placeholder for delta change
-    delta_arrow = "↑" if delta > prev_delta else "↓" if delta < prev_delta else "→"
-
-    prev_rsi = rsi - 0.5  # Placeholder for RSI change
-    rsi_arrow = "↑" if rsi > prev_rsi else "↓" if rsi < prev_rsi else "→"
-
-    prev_ma50 = ma50 - 0.2  # Placeholder for MA change
-    ma50_arrow = "↑" if ma50 > prev_ma50 else "↓" if ma50 < prev_ma50 else "→"
-
-    prev_ma200 = ma200 - 0.3  # Placeholder for MA change
-    ma200_arrow = "↑" if ma200 > prev_ma200 else "↓" if ma200 < prev_ma200 else "→"
-
-    # Display all metrics in a single row using columns
-    col1, col2, col3, col4, col5, col6 = st.columns(6)
-
-    with col1:
-        st.metric("Current Price", f"${current_price:.2f}", f"{price_change:.2f} {price_arrow}")
-
-    with col2:
-        st.metric("Volume", f"{volume:,}", f"{volume_change:,} {volume_arrow}")
-
-    with col3:
-        st.metric("Delta", f"{delta:.2f}", f"{delta - prev_delta:.2f} {delta_arrow}")
-
-    with col4:
-        st.metric("RSI", f"{rsi:.2f}", f"{rsi - prev_rsi:.2f} {rsi_arrow}")
-
-    with col5:
-        st.metric("50-day MA", f"${ma50:.2f}", f"{ma50 - prev_ma50:.2f} {ma50_arrow}")
-
-    with col6:
-        st.metric("200-day MA", f"${ma200:.2f}", f"{ma200 - prev_ma200:.2f} {ma200_arrow}")
+   
 
 
     symbol = ticker
