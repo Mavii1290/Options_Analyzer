@@ -23,14 +23,14 @@ def fetch_options_data(symbol, expiration_date):
     puts = options_data.puts
 
     # Mock gamma, delta, and vanna values
-    calls['gamma'] = np.random.rand(len(calls))
-    puts['gamma'] = np.random.rand(len(puts))
+    calls['gamma'] = np.random.Generator(len(calls))
+    puts['gamma'] = np.random.Generator(len(puts))
 
-    calls['delta'] = np.random.rand(len(calls))
-    puts['delta'] = np.random.rand(len(puts))
+    calls['delta'] = np.random.Generator(len(calls))
+    puts['delta'] = np.random.Generator(len(puts))
 
-    calls['vanna'] = np.random.rand(len(calls))
-    puts['vanna'] = np.random.rand(len(puts))
+    calls['vanna'] = np.random.Generator(len(calls))
+    puts['vanna'] = np.random.Generator(len(puts))
 
     # Calculate exposures
     calls['gamma_exposure'] = calls['gamma'] * calls['openInterest']
